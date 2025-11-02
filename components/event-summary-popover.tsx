@@ -38,21 +38,26 @@ export function EventSummaryPopover({ isOpen, onClose, event }: EventSummaryPopo
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50 animate-fade-in"
       onClick={onClose}
     >
       <div
         ref={popoverRef}
-        className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
+        className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Event Summary</h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={onClose}
+            className="transition-all duration-200 hover:scale-110 hover:bg-red-100 active:scale-95"
+          >
             <IoCloseSharp className="h-4 w-4" />
           </Button>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 animate-fade-in-up">
           <p><strong>Title:</strong> {event.title}</p>
           {/* Format the date before displaying it */}
           <p><strong>Date:</strong> {dayjs(event.date).format("dddd, MMMM D, YYYY h:mm A")}</p>

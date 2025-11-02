@@ -20,18 +20,18 @@ export default function SideBarCalendar() {
         </h4>
         <div className="flex items-center gap-3">
           <MdKeyboardArrowLeft
-            className="size-5 cursor-pointer font-bold"
+            className="size-5 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
             onClick={() => setMonth(selectedMonthIndex - 1)}
           />
           <MdKeyboardArrowRight
-            className="size-5 cursor-pointer font-bold"
+            className="size-5 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
             onClick={() => setMonth(selectedMonthIndex + 1)}
           />
         </div>
       </div>
 
       {/* Header Row: Days of the Week */}
-      <div className="mt-2 grid grid-cols-7 text-xs">
+      <div className="mt-2 grid grid-cols-7 text-xs animate-fade-in">
         {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
           <span key={i} className="py-1 text-center">
             {day}
@@ -41,16 +41,17 @@ export default function SideBarCalendar() {
 
       {/* Main Content: Dates (no week numbers) */}
       <div className="mt-2 text-xs">
-        <div className="grid grid-cols-7 grid-rows-5 gap-1 gap-y-3 rounded-sm p-1 text-xs">
+        <div className="grid grid-cols-7 grid-rows-5 gap-1 gap-y-3 rounded-sm p-1 text-xs animate-fade-in-up">
           {twoDMonthArray.map((row, i) => (
             <Fragment key={i}>
               {row.map((day, index) => (
                 <button
                   key={index}
                   className={cn(
-                    "flex h-5 w-5 items-center justify-center rounded-full",
+                    "flex h-5 w-5 items-center justify-center rounded-full transition-all duration-200",
+                    "hover:bg-blue-100 hover:scale-110 active:scale-95",
                     day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
-                      "bg-blue-600 text-white",
+                      "bg-blue-600 text-white hover:bg-blue-700",
                   )}
                 >
                   <span>{day.format("D")}</span>

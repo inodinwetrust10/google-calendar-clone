@@ -71,7 +71,7 @@ export default function HeaderLeft() {
       <div className="hidden items-center lg:flex">
         <Button
           variant="ghost"
-          className="rounded-full p-2"
+          className="rounded-full p-2 transition-all duration-200 hover:scale-110 active:scale-95"
           onClick={() => setSideBarOpen()}
         >
           <Menu className="size-6" />
@@ -81,21 +81,26 @@ export default function HeaderLeft() {
           width={40}
           height={40}
           alt="icon"
+          className="transition-transform duration-300 hover:scale-110"
         />
         <h1 className="text-xl">Calendar</h1>
       </div>
 
-      <Button variant="outline" onClick={handleTodayClick}>
+      <Button 
+        variant="outline" 
+        onClick={handleTodayClick}
+        className="transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95"
+      >
         Today
       </Button>
 
       <div className="flex items-center gap-3">
         <MdKeyboardArrowLeft
-          className="size-6 cursor-pointer font-bold"
+          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
           onClick={handlePrevClick}
         />
         <MdKeyboardArrowRight
-          className="size-6 cursor-pointer font-bold"
+          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
           onClick={handleNextClick}
         />
       </div>

@@ -35,8 +35,8 @@ export default function MonthViewBox({
   return (
     <div
       className={cn(
-        "group relative flex flex-col items-center gap-y-2 border",
-        "transition-all hover:bg-violet-50",
+        "group relative flex flex-col items-center gap-y-2 border cursor-pointer",
+        "transition-all duration-200 hover:bg-violet-50 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
       )}
       onClick={handleClick}
     >
@@ -48,9 +48,9 @@ export default function MonthViewBox({
         )}
         <h4
           className={cn(
-            "text-center text-sm",
+            "text-center text-sm transition-all duration-200",
             isToday &&
-              "flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white",
+              "flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white animate-bounce-in",
           )}
         >
           {isFirstDayOfMonth ? day.format("MMM D") : day.format("D")}

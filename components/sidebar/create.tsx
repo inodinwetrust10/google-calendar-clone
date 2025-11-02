@@ -27,11 +27,11 @@ export default function Create() {
     <>
       <Button
         variant="ghost"
-        className="w-[150px] justify-start rounded-full py-6 shadow"
+        className="w-[150px] justify-start rounded-full py-6 shadow transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
         onClick={handleOpenPopover}
       >
-        <SvgIcons.googleCreate className="mr-2 h-8 w-8" /> <span> Create </span>{" "}
-        <ChevronDown />
+        <SvgIcons.googleCreate className="mr-2 h-8 w-8 transition-transform duration-200 group-hover:rotate-12" /> <span> Create </span>{" "}
+        <ChevronDown className="transition-transform duration-200 hover:translate-y-0.5" />
       </Button>
       {isPopoverOpen && (
         <EventPopover

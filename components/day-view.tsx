@@ -24,7 +24,7 @@ export default function DayView() {
 
   return (
     <>
-      <div className="grid grid-cols-[auto_auto_1fr] px-4">
+      <div className="grid grid-cols-[auto_auto_1fr] px-4 animate-fade-in">
         <div className="w-16 border-r border-gray-300 text-xs">GMT +5:30</div>
         <div className="flex w-16 flex-col items-center">
           <div className={cn("text-xs", isToday && "text-blue-600")}>
@@ -32,8 +32,8 @@ export default function DayView() {
           </div>{" "}
           <div
             className={cn(
-              "h-12 w-12 rounded-full p-2 text-2xl",
-              isToday && "bg-blue-600 text-white",
+              "h-12 w-12 rounded-full p-2 text-2xl transition-all duration-300",
+              isToday && "bg-blue-600 text-white animate-bounce-in",
             )}
           >
             {userSelectedDate.format("DD")}{" "}
@@ -60,7 +60,7 @@ export default function DayView() {
             {getHours.map((hour, i) => (
               <div
                 key={i}
-                className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 hover:bg-gray-100"
+                className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 transition-all duration-150 hover:bg-blue-50 hover:shadow-inner active:bg-blue-100"
                 onClick={() => {
                   setDate(userSelectedDate.hour(hour.hour()));
                   openPopover();

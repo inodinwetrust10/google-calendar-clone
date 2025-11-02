@@ -81,12 +81,12 @@ export default function EventPopover({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 animate-fade-in"
       onClick={handleClose}
     >
       <div
         ref={popoverRef}
-        className="w-full max-w-md rounded-lg bg-white shadow-lg"
+        className="w-full max-w-md rounded-lg bg-white shadow-lg animate-scale-in"
         onClick={handlePopoverClick}
       >
         <div className="mb-2 flex items-center justify-between rounded-md bg-slate-100 p-1">
@@ -96,6 +96,7 @@ export default function EventPopover({
             size="icon"
             type="button"
             onClick={handleClose}
+            className="transition-all duration-200 hover:scale-110 hover:bg-red-100 active:scale-95"
           >
             <IoCloseSharp className="h-4 w-4" />
           </Button>
@@ -110,13 +111,13 @@ export default function EventPopover({
             />
           </div>
           <div className="flex items-center justify-between">
-            <Button className="bg-blue-100 text-blue-700 hover:bg-blue-100 hover:text-blue-700">
+            <Button className="bg-blue-100 text-blue-700 transition-all duration-200 hover:scale-105 hover:bg-blue-200 hover:text-blue-700 active:scale-95">
               Event
             </Button>
-            <Button type="button" variant="ghost">
+            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95">
               Task
             </Button>
-            <Button type="button" variant="ghost">
+            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95">
               Appointmet Schedule <sup className="bg-blue-500">new</sup>
             </Button>
           </div>
@@ -176,7 +177,11 @@ export default function EventPopover({
           </div>
 
           <div className="flex justify-end space-x-2">
-            <Button type="submit" disabled={isPending}>
+            <Button 
+              type="submit" 
+              disabled={isPending}
+              className="transition-all duration-200 hover:scale-105 hover:shadow-md active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               {isPending ? "Saving..." : "Save"}
             </Button>
           </div>

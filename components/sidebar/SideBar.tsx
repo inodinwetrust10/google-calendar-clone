@@ -13,6 +13,7 @@ export default function SideBar() {
       className={cn(
         "w-92 hidden border-t px-2 py-3 transition-all duration-300 ease-in-out lg:block",
         !isSideBarOpen && "lg:hidden",
+        isSideBarOpen && "animate-slide-in-right",
       )}
     >
       <Create />
