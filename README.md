@@ -1,6 +1,6 @@
 # Google Calendar Clone
 
-A fully functional Google Calendar clone built with Next.js 14, featuring multiple view modes (Month, Week, Day), event management, and a modern, responsive UI.
+A fully functional Google Calendar clone built with Next.js 14, featuring multiple view modes (Month, Week, Day), event management, smooth animations, dark mode support, and a modern, responsive UI.
 
 
 ##  Table of Contents
@@ -12,6 +12,7 @@ A fully functional Google Calendar clone built with Next.js 14, featuring multip
 - [Usage](#usage)
 - [Business Logic & Edge Cases](#business-logic--edge-cases)
 - [Animations & Interactions](#animations--interactions)
+- [Dark Mode](#dark-mode)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
 
@@ -33,13 +34,23 @@ A fully functional Google Calendar clone built with Next.js 14, featuring multip
   - Collapsible sidebar with mini-calendar
   - Current time indicator in Week and Day views
   - Timezone support (GMT +5:30 IST)
-  - Smooth animations and transitions
-  - Dark mode support (extendable)
+  - **Smooth animations and transitions throughout**
+  - **Full dark mode support with theme persistence**
+  - **Animated theme toggle with sun/moon icons**
+
+- **Animations & Polish**
+  - Entrance animations (fade-in, scale-in, slide-in) for modals and views
+  - Hover effects with scale transforms on all interactive elements
+  - Click feedback with active states (scale-down on press)
+  - Smooth transitions (150-300ms) for responsive feel
+  - Bounce-in animation for today's date indicator
+  - Custom keyframe animations via Tailwind CSS
 
 - **State Management**
   - Persistent state using Zustand with localStorage
   - Hydration handling for SSR compatibility
   - Optimistic UI updates
+  - Theme preference persistence across sessions
 
 ## 🛠️ Technology Stack
 
@@ -75,30 +86,31 @@ google-calendar-clone/
 │   ├── actions/                  # Server Actions
 │   │   └── event-actions.ts      # Event CRUD operations
 │   ├── fonts/                    # Custom fonts
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
+│   ├── globals.css               # Global styles + dark mode variables
+│   ├── layout.tsx                # Root layout with ThemeProvider
 │   └── page.tsx                  # Home page
 ├── components/                   # React components
 │   ├── header/                   # Header components
 │   │   ├── Header.tsx
-│   │   ├── left-side.tsx
-│   │   └── right-side.tsx
+│   │   ├── left-side.tsx         # Navigation & date controls
+│   │   └── right-side.tsx        # View selector & theme toggle
 │   ├── sidebar/                  # Sidebar components
 │   │   ├── SideBar.tsx
 │   │   ├── create.tsx
 │   │   ├── my-calendars.tsx
 │   │   ├── search-users.tsx
-│   │   └── side-bar-calendar.tsx
-│   ├── ui/                       # Reusable UI components
+│   │   └── side-bar-calendar.tsx # Mini calendar (no week numbers)
+│   ├── ui/                       # Reusable UI components (Shadcn)
 │   ├── day-view.tsx              # Day view component
 │   ├── week-view.tsx             # Week view component
 │   ├── month-view.tsx            # Month view component
 │   ├── month-view-box.tsx        # Month grid cell
-│   ├── event-popover.tsx         # Event creation modal
+│   ├── event-popover.tsx         # Event creation modal (dark mode)
 │   ├── event-renderer.tsx        # Event display logic
-│   ├── event-summary-popover.tsx # Event details modal
+│   ├── event-summary-popover.tsx # Event details modal (dark mode)
 │   ├── add-time.tsx              # Time picker component
 │   ├── MainView.tsx              # Main view controller
+│   ├── theme-provider.tsx        # Theme initialization & management
 │   └── svg-icons.tsx             # Custom SVG icons
 ├── db/                           # Database layer
 │   ├── drizzle.ts                # Database instance
@@ -106,9 +118,9 @@ google-calendar-clone/
 │   ├── migrate.ts                # Migration script
 │   └── migrations/               # SQL migrations
 ├── lib/                          # Utility functions
-│   ├── store.ts                  # Zustand state management
+│   ├── store.ts                  # Zustand stores (date, view, event, theme)
 │   ├── getTime.ts                # Date/time utilities
-│   ├── utils.ts                  # General utilities
+│   ├── utils.ts                  # General utilities (cn helper)
 │   └── data.ts                   # Mock data (unused in production)
 └── public/                       # Static assets
 ```
@@ -295,29 +307,95 @@ if (view === "month") {
 6. **No Event Reminders**: No notification system
 7. **No User Authentication**: Single-user calendar (no multi-user support)
 8. **No Event Categories**: All events use the same styling
+9. **Week Numbers Removed**: Sidebar calendar no longer displays week numbers (UI simplification)
 
 ## 🎨 Animations & Interactions
 
-### CSS Animations
+### Custom Tailwind Animations
 
-1. **Accordion Animation** (Sidebar)
+The project includes custom keyframe animations defined in `tailwind.config.ts`:
+
+1. **fade-in** (0.3s ease-out)
    ```css
-   @keyframes accordion-down {
-     from { height: 0 }
-     to { height: var(--radix-accordion-content-height) }
+   @keyframes fade-in {
+     from { opacity: 0 }
+     to { opacity: 1 }
    }
    ```
-   - Used for "My Calendars" section expand/collapse
+   - Used for: View transitions, modal backdrops
 
-2. **Hover Effects**
-   - Calendar cells: `hover:bg-violet-50`
-   - Buttons: Smooth color transitions via Tailwind
-   - Time slots: `hover:bg-gray-100`
+2. **fade-in-up** (0.4s ease-out)
+   ```css
+   @keyframes fade-in-up {
+     from { opacity: 0; transform: translateY(10px) }
+     to { opacity: 1; transform: translateY(0) }
+   }
+   ```
+   - Used for: Event popover content, form elements
 
-3. **Modal Animations**
-   - Event popovers: Fade-in with backdrop blur
-   - Uses fixed positioning with `z-50` for overlay
-   - Click-outside-to-close implemented with refs
+3. **scale-in** (0.2s ease-out)
+   ```css
+   @keyframes scale-in {
+     from { opacity: 0; transform: scale(0.95) }
+     to { opacity: 1; transform: scale(1) }
+   }
+   ```
+   - Used for: Modal entrance, dropdown menus
+
+4. **slide-in-right** (0.3s ease-out)
+   ```css
+   @keyframes slide-in-right {
+     from { transform: translateX(-100%) }
+     to { transform: translateX(0) }
+   }
+   ```
+   - Used for: Sidebar entrance when toggled
+
+5. **bounce-in** (0.5s cubic-bezier)
+   ```css
+   @keyframes bounce-in {
+     0% { transform: scale(0.3); opacity: 0 }
+     50% { transform: scale(1.05) }
+     70% { transform: scale(0.9) }
+     100% { transform: scale(1); opacity: 1 }
+   }
+   ```
+   - Used for: Today's date indicator
+
+6. **accordion-down/up** (0.2s ease-out)
+   - Used for: Sidebar "My Calendars" expand/collapse
+
+### Interactive Animations
+
+#### Hover Effects
+- **Buttons**: `hover:scale-105` + shadow increase
+- **Navigation arrows**: `hover:scale-125` + color shift to blue
+- **Calendar cells**: `hover:scale-110` + background tint
+- **Month boxes**: `hover:scale-[1.02]` + shadow + violet background
+- **Time slots**: `hover:bg-blue-50` (light) / `hover:bg-blue-950` (dark)
+- **Avatar**: `hover:scale-110` + ring animation
+
+#### Active States (Click Feedback)
+- All clickable elements: `active:scale-95` for tactile response
+- Buttons: Additional `active:bg-*` color shift
+- Duration: 150-200ms for instant feedback
+
+#### Entrance Animations
+- **Modals**: Scale-in + backdrop fade-in
+- **Dropdowns**: Scale-in animation
+- **Views**: Fade-in when switching between Month/Week/Day
+- **Sidebar**: Slide-in-right when toggled open
+
+#### Transition Timings
+- Fast interactions: 150ms (hover feedback)
+- Standard: 200ms (most transitions)
+- Smooth: 300ms (theme toggle, complex animations)
+- Slow: 400ms+ (entrance animations with staging)
+
+### Real-time Updates
+- Current time indicator refreshes every 60 seconds
+- State changes trigger re-renders via Zustand subscriptions
+- Optimistic UI updates during event creation
 
 ### Interactive Features
 
@@ -331,23 +409,110 @@ if (view === "month") {
    };
    ```
 
-2. **Real-time Updates**
-   - Current time indicator refreshes every 60 seconds
-   - State changes trigger re-renders via Zustand subscriptions
-
-3. **Responsive Design**
+2. **Responsive Design**
    - Sidebar auto-hides on mobile (`lg:hidden` utility)
    - Grid layouts adapt to screen size
    - Touch-friendly tap targets (minimum 44px)
 
-4. **Keyboard Navigation**
+3. **Keyboard Navigation**
    - Form inputs support standard keyboard navigation
    - Time picker scrollable with keyboard
+   - Esc key closes modals (via click-outside handler)
 
-5. **Loading States**
+4. **Loading States**
    - "Saving..." button text during form submission
    - Disabled state prevents double-submissions
    - `useTransition` hook for pending states
+
+## 🌓 Dark Mode
+
+### Implementation
+
+The project features a complete dark mode implementation with:
+
+**Theme Toggle**
+- Sun/Moon icon toggle in header (top right)
+- Smooth icon rotation animation (300ms)
+- Persists preference to localStorage
+- Auto-applies on page load
+
+**Theme Provider** (`components/theme-provider.tsx`)
+```typescript
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const { theme, setTheme } = useThemeStore();
+  
+  useEffect(() => {
+    // Apply dark class to document root
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+  
+  return <>{children}</>;
+}
+```
+
+**State Management** (`lib/store.ts`)
+```typescript
+export const useThemeStore = create<ThemeStoreType>()(
+  persist(
+    (set, get) => ({
+      theme: "light",
+      toggleTheme: () => {
+        const newTheme = get().theme === "light" ? "dark" : "light";
+        set({ theme: newTheme });
+      },
+    }),
+    { name: "theme_preference" }
+  )
+);
+```
+
+### Dark Mode Coverage
+
+**Components with Dark Mode:**
+- ✅ Event Creation Popover (dark:bg-gray-900)
+- ✅ Event Summary Popover
+- ✅ All Calendar Views (Month/Week/Day)
+- ✅ Sidebar & Mini Calendar
+- ✅ Header & Navigation
+- ✅ All Buttons & Interactive Elements
+- ✅ Form Inputs & Dropdowns
+- ✅ Time Slots & Grid Cells
+- ✅ Borders & Dividers
+
+**Dark Mode Color Palette:**
+- Background: `dark:bg-gray-900`
+- Cards/Modals: `dark:bg-gray-800`
+- Text Primary: `dark:text-white`
+- Text Secondary: `dark:text-gray-300`
+- Text Muted: `dark:text-gray-400`
+- Borders: `dark:border-gray-700`
+- Hover States: `dark:hover:bg-blue-950`
+- Active States: `dark:active:bg-blue-900`
+
+**CSS Variables** (in `globals.css`)
+```css
+.dark {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --popover: 0 0% 3.9%;
+  /* ...all Shadcn theme variables */
+}
+```
+
+### Usage
+```typescript
+// Access theme in components
+const { theme, toggleTheme } = useThemeStore();
+
+// Toggle programmatically
+toggleTheme();
+
+// Check current theme
+if (theme === "dark") {
+  // Dark mode specific logic
+}
+```
 
 ## 🔮 Future Enhancements
 
@@ -404,27 +569,22 @@ if (view === "month") {
     - Database indexing for faster queries
 
 ### Low Priority
-11. **Dark Mode**
-    - Theme toggle in header
-    - Persist preference in localStorage
-    - Tailwind dark mode classes
+11. **Mobile App**
+    - React Native version
+    - Native calendar integration
+    - Offline-first architecture
 
 12. **Accessibility Improvements**
     - ARIA labels for screen readers
     - Keyboard shortcuts (e.g., 'n' for new event)
     - Focus management in modals
 
-13. **Mobile App**
-    - React Native version
-    - Native calendar integration
-    - Offline-first architecture
-
-14. **Analytics**
+13. **Analytics**
     - Event statistics dashboard
     - Time tracking reports
     - Export to CSV/PDF
 
-15. **Collaboration Features**
+14. **Collaboration Features**
     - Shared calendars
     - Meeting scheduling polls (like Doodle)
     - Calendar subscriptions
@@ -446,12 +606,6 @@ if (view === "month") {
 - Cross-browser compatibility
 - Responsive design validation
 
-## 📊 Performance Metrics
-
-- **Lighthouse Score**: 95+ (Performance)
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3.5s
-- **Bundle Size**: ~200kb (gzipped)
 
 ## 🐛 Known Issues
 
@@ -459,16 +613,6 @@ if (view === "month") {
 2. Safari date input styling differs from Chrome
 3. Mobile sidebar toggle requires manual close
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👥 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Contributors
-- **Aditya** - Initial development
 
 ### Reviewers
 This project is shared with:
