@@ -31,30 +31,16 @@ export default function SideBarCalendar() {
       </div>
 
       {/* Header Row: Days of the Week */}
-      <div className="mt-2 grid grid-cols-[auto_1fr]">
-        <div className="w-6"></div>
-        <div className="grid grid-cols-7 text-xs">
-          {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
-            <span key={i} className="py-1 text-center">
-              {day}
-            </span>
-          ))}
-        </div>
+      <div className="mt-2 grid grid-cols-7 text-xs">
+        {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
+          <span key={i} className="py-1 text-center">
+            {day}
+          </span>
+        ))}
       </div>
 
-      {/* Main Content: Weeks and Days */}
-      <div className="mt-2 grid grid-cols-[auto_1fr] text-xs">
-        {/* Week Number  column */}
-        <div className="grid w-6 grid-rows-5 gap-1 gap-y-3 rounded-sm bg-gray-100 p-1">
-          {weeksOfMonth.map((week, i) => (
-            <span key={i} className="flex h-5 w-5 items-center justify-center">
-              {week}
-            </span>
-          ))}
-        </div>
-
-        {/* Dates grid */}
-
+      {/* Main Content: Dates (no week numbers) */}
+      <div className="mt-2 text-xs">
         <div className="grid grid-cols-7 grid-rows-5 gap-1 gap-y-3 rounded-sm p-1 text-xs">
           {twoDMonthArray.map((row, i) => (
             <Fragment key={i}>
