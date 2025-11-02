@@ -23,20 +23,20 @@ export default function WeekView() {
   return (
     <>
       <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] place-items-center px-4 py-2 animate-fade-in">
-        <div className="w-16 border-r border-gray-300">
+        <div className="w-16 border-r border-gray-300 dark:border-gray-700">
           <div className="relative h-16">
-            <div className="absolute top-2 text-xs text-gray-600">GMT +5:30</div>
+            <div className="absolute top-2 text-xs text-gray-600 dark:text-gray-400">GMT +5:30</div>
           </div>
         </div>
 
         {getWeekDays(userSelectedDate).map(({ currentDate, today }, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className={cn("text-xs", today && "text-blue-600")}>
+            <div className={cn("text-xs dark:text-gray-400", today && "text-blue-600 dark:text-blue-400")}>
               {currentDate.format("ddd")}
             </div>
             <div
               className={cn(
-                "h-12 w-12 rounded-full p-2 text-2xl",
+                "h-12 w-12 rounded-full p-2 text-2xl dark:text-gray-300",
                 today && "bg-blue-600 text-white",
               )}
             >
@@ -51,10 +51,10 @@ export default function WeekView() {
       <ScrollArea className="h-[70vh]">
         <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr_1fr_1fr] px-4 py-2">
           {/* Time Column */}
-          <div className="w-16 border-r border-gray-300">
+          <div className="w-16 border-r border-gray-300 dark:border-gray-700">
             {getHours.map((hour, index) => (
               <div key={index} className="relative h-16">
-                <div className="absolute -top-2 text-xs text-gray-600">
+                <div className="absolute -top-2 text-xs text-gray-600 dark:text-gray-400">
                   {hour.format("HH:mm")}
                 </div>
               </div>
@@ -70,11 +70,11 @@ export default function WeekView() {
                 .add(index, "day");
 
               return (
-                <div key={index} className="relative border-r border-gray-300">
+                <div key={index} className="relative border-r border-gray-300 dark:border-gray-700">
                   {getHours.map((hour, i) => (
                     <div
                       key={i}
-                      className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 transition-all duration-150 hover:bg-blue-50 hover:shadow-inner active:bg-blue-100"
+                      className="relative flex h-16 cursor-pointer flex-col items-center gap-y-2 border-b border-gray-300 dark:border-gray-700 transition-all duration-150 hover:bg-blue-50 dark:hover:bg-blue-950 hover:shadow-inner active:bg-blue-100 dark:active:bg-blue-900"
                       onClick={() => {
                         setDate(dayDate.hour(hour.hour()));
                         openPopover();

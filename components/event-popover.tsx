@@ -86,17 +86,17 @@ export default function EventPopover({
     >
       <div
         ref={popoverRef}
-        className="w-full max-w-md rounded-lg bg-white shadow-lg animate-scale-in"
+        className="w-full max-w-md rounded-lg bg-white dark:bg-gray-900 shadow-lg animate-scale-in"
         onClick={handlePopoverClick}
       >
-        <div className="mb-2 flex items-center justify-between rounded-md bg-slate-100 p-1">
-          <HiOutlineMenuAlt4 />
+        <div className="mb-2 flex items-center justify-between rounded-md bg-slate-100 dark:bg-gray-800 p-1">
+          <HiOutlineMenuAlt4 className="text-gray-700 dark:text-gray-300" />
           <Button
             variant="ghost"
             size="icon"
             type="button"
             onClick={handleClose}
-            className="transition-all duration-200 hover:scale-110 hover:bg-red-100 active:scale-95"
+            className="transition-all duration-200 hover:scale-110 hover:bg-red-100 dark:hover:bg-red-900 active:scale-95"
           >
             <IoCloseSharp className="h-4 w-4" />
           </Button>
@@ -107,24 +107,24 @@ export default function EventPopover({
               type="text"
               name="title"
               placeholder="Add title"
-              className="my-4 rounded-none border-0 border-b text-2xl focus-visible:border-b-2 focus-visible:border-b-blue-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="my-4 rounded-none border-0 border-b text-2xl bg-transparent dark:border-gray-700 dark:text-white dark:placeholder:text-gray-400 focus-visible:border-b-2 focus-visible:border-b-blue-600 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
           <div className="flex items-center justify-between">
-            <Button className="bg-blue-100 text-blue-700 transition-all duration-200 hover:scale-105 hover:bg-blue-200 hover:text-blue-700 active:scale-95">
+            <Button className="bg-blue-100 text-blue-700 transition-all duration-200 hover:scale-105 hover:bg-blue-200 hover:text-blue-700 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800 active:scale-95">
               Event
             </Button>
-            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95">
+            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95 dark:text-gray-300 dark:hover:bg-gray-800">
               Task
             </Button>
-            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95">
-              Appointmet Schedule <sup className="bg-blue-500">new</sup>
+            <Button type="button" variant="ghost" className="transition-all duration-200 hover:scale-105 active:scale-95 dark:text-gray-300 dark:hover:bg-gray-800">
+              Appointmet Schedule <sup className="bg-blue-500 text-white">new</sup>
             </Button>
           </div>
 
           <div className="flex items-center space-x-3">
-            <FiClock className="size-5 text-gray-600" />
-            <div className="flex items-center space-x-3 text-sm">
+            <FiClock className="size-5 text-gray-600 dark:text-gray-400" />
+            <div className="flex items-center space-x-3 text-sm dark:text-gray-300">
               <p>{dayjs(date).format("dddd, MMMM D")}</p>
               <AddTime onTimeSelect={setSelectedTime} />
               <input type="hidden" name="date" value={date} />
@@ -133,44 +133,44 @@ export default function EventPopover({
           </div>
 
           <div className="flex items-center space-x-3">
-            <HiOutlineUsers className="size-5 text-slate-600" />
+            <HiOutlineUsers className="size-5 text-slate-600 dark:text-gray-400" />
             <Input
               type="text"
               name="guests"
               placeholder="Add guests"
               className={cn(
-                "w-full rounded-lg border-0 bg-slate-100 pl-7 placeholder:text-slate-600",
+                "w-full rounded-lg border-0 bg-slate-100 dark:bg-gray-800 pl-7 placeholder:text-slate-600 dark:placeholder:text-gray-400 dark:text-white",
                 "focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0",
               )}
             />
           </div>
 
           <div className="flex items-center space-x-3">
-            <HiOutlineMenuAlt2 className="size-5 text-slate-600" />
+            <HiOutlineMenuAlt2 className="size-5 text-slate-600 dark:text-gray-400" />
             <Input
               type="text"
               name="description"
               placeholder="Add description"
               className={cn(
-                "w-full rounded-lg border-0 bg-slate-100 pl-7 placeholder:text-slate-600",
+                "w-full rounded-lg border-0 bg-slate-100 dark:bg-gray-800 pl-7 placeholder:text-slate-600 dark:placeholder:text-gray-400 dark:text-white",
                 "focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0",
               )}
             />
           </div>
 
           <div className="flex items-center space-x-3">
-            <IoMdCalendar className="size-5 text-slate-600" />
+            <IoMdCalendar className="size-5 text-slate-600 dark:text-gray-400" />
             <div className="">
-              <div className="flex items-center space-x-3 text-sm">
+              <div className="flex items-center space-x-3 text-sm dark:text-gray-300">
                 {" "}
                 <p>Aditya</p>{" "}
                 <div className="h-4 w-4 rounded-full bg-violet-500"></div>{" "}
               </div>
-              <div className="flex items-center space-x-1 text-xs">
+              <div className="flex items-center space-x-1 text-xs dark:text-gray-400">
                 <span>Busy</span>
-                <div className="h-1 w-1 rounded-full bg-gray-500"></div>
+                <div className="h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-600"></div>
                 <span>Default visibility</span>{" "}
-                <div className="h-1 w-1 rounded-full bg-gray-500"></div>
+                <div className="h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-600"></div>
                 <span>Notify 30 minutes before</span>
               </div>
             </div>
@@ -186,8 +186,8 @@ export default function EventPopover({
             </Button>
           </div>
 
-          {error && <p className="mt-2 px-6 text-red-500">{error}</p>}
-          {success && <p className="mt-2 px-6 text-green-500">Success</p>}
+          {error && <p className="mt-2 px-6 text-red-500 dark:text-red-400">{error}</p>}
+          {success && <p className="mt-2 px-6 text-green-500 dark:text-green-400">Success</p>}
         </form>
       </div>
     </div>

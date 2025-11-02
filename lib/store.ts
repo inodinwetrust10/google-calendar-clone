@@ -40,6 +40,12 @@ interface ToggleSideBarType {
   setSideBarOpen: () => void;
 }
 
+interface ThemeStoreType {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+  setTheme: (theme: "light" | "dark") => void;
+}
+
 export const useViewStore = create<ViewStoreType>()(
   devtools(
     persist(
@@ -94,4 +100,27 @@ export const useToggleSideBarStore = create<ToggleSideBarType>()(
       set({ isSideBarOpen: !get().isSideBarOpen });
     },
   }),
+);
+
+export const useThemeStore = create<ThemeStoreType>()(
+  persist(
+    (set, get) => ({
+      theme: "light",
+      toggleTheme: () => {
+        const newTheme = get().theme === "light" ? "dark" : "light";
+        set({ theme: newTheme });
+        // Apply theme to document
+        if (typeof window !== "undefined") {
+          document.documentElement.classList.toggle("dark", newTheme === "dark");
+        }
+      },
+      setTheme: (theme) => {
+        set({ theme });
+        if (typeof window !== "undefined") {
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        }
+      },
+    }),
+    { name: "theme_preference" },
+  ),
 );

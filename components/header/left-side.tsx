@@ -83,7 +83,7 @@ export default function HeaderLeft() {
           alt="icon"
           className="transition-transform duration-300 hover:scale-110"
         />
-        <h1 className="text-xl">Calendar</h1>
+        <h1 className="text-xl dark:text-gray-200">Calendar</h1>
       </div>
 
       <Button 
@@ -96,16 +96,16 @@ export default function HeaderLeft() {
 
       <div className="flex items-center gap-3">
         <MdKeyboardArrowLeft
-          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
+          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 dark:hover:text-blue-400 active:scale-95"
           onClick={handlePrevClick}
         />
         <MdKeyboardArrowRight
-          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 active:scale-95"
+          className="size-6 cursor-pointer font-bold transition-all duration-200 hover:scale-125 hover:text-blue-600 dark:hover:text-blue-400 active:scale-95"
           onClick={handleNextClick}
         />
       </div>
 
-      <h1 className="hidden text-xl lg:block">
+      <h1 className="hidden text-xl lg:block dark:text-gray-200">
         {dayjs(new Date(dayjs().year(), selectedMonthIndex)).format(
           "MMMM YYYY",
         )}
