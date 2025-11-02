@@ -1,0 +1,30 @@
+import Header from "@/components/header/Header";
+import MainView from "@/components/MainView";
+import { db } from "@/db/drizzle";
+import { CalendarEventType } from "@/lib/store";
+import dayjs from "dayjs";
+
+const getEventsData = async () => {
+  try {
+    const data = await db.query.eventsTable.findMany();
+
+    return data.map((event) => ({
+      ...event,
+      date: dayjs(event.date).toISOString(),
+    }));
+  } catch (error) {
+    console.error("Error fetching data from the database:", error);
+    return [];
+  }
+};
+
+export default async function Home() {
+  const dbEvents = await getEventsData();
+
+  return (
+    <div className="">
+      <Header />
+      <MainView eventsData={dbEvents as unknown as CalendarEventType[]} />
+    </div>
+  );
+}
